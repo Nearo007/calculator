@@ -19,7 +19,7 @@
             }
             button:hover {opacity: 0.6}
             .result-input {
-                background-color: rgb(65, 65, 65);
+                background-color: rgb(61, 61, 61);
                 height: 90px;
                 width: 380px;
                 border: none;
@@ -165,7 +165,7 @@
                     calculation += keyPressed;
                     localStorage.setItem('calculation',calculation);
                 }
-                else {
+                else if (keyPressed === 'Enter') {
                     if (!calculation) {
                         calculation = '0'
                         calculation=eval(calculation);
@@ -176,7 +176,6 @@
                         calculation=eval(calculation);
                         document.querySelector('.result-input').value = calculation;
                         localStorage.setItem('calculation',calculation);
-
                     }
                 }
             }
