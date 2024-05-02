@@ -4,11 +4,7 @@
         <title>Calculator</title>
         <style>
             body {background-color: rgb(31, 31, 31);}
-            .flexbox1 {
-                display: flex;
-                align-items: center;
-                flex-direction: column;
-            }            
+
             button {
                 background-color: rgb(41, 41, 41);
                 color: rgb(214, 214, 214);
@@ -18,6 +14,17 @@
                 transition: opacity 0.2s;
             }
             button:hover {opacity: 0.6}
+            .flexbox1 {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+            }     
+            .calculator-title {
+                color: rgb(214, 214, 214);
+                font-family: Arial;
+                font-size: 50px;
+                margin: 10px 0;
+            }
             .result-input {
                 background-color: rgb(61, 61, 61);
                 height: 90px;
@@ -55,7 +62,11 @@
     <body>
         <div class="flexbox1">
             <div>
-                <input class="result-input" placeholder="0" onkeydown="getKeyInput(event.key)">
+                <p class="calculator-title">Calculator</p>
+            </div>
+
+            <div>
+                <input class="result-input" placeholder="0">
             </div>
 
             <div class="div-buttons">
@@ -155,29 +166,6 @@
                 calculation = '';
                 localStorage.setItem('calculation',calculation);
                 document.querySelector('.result-input').value = calculation;
-            }
-            function getKeyInput(keyPressed) {
-                if(keyPressed &&
-                keyPressed !== 'Enter' &&
-                keyPressed !== 'Shift' &&
-                keyPressed !== 'Control' &&
-                keyPressed !== 'Backspace') {
-                    calculation += keyPressed;
-                    localStorage.setItem('calculation',calculation);
-                }
-                else if (keyPressed === 'Enter') {
-                    if (!calculation) {
-                        calculation = '0'
-                        calculation=eval(calculation);
-                        localStorage.setItem('calculation',eval(calculation));
-
-                    }
-                    else {
-                        calculation=eval(calculation);
-                        document.querySelector('.result-input').value = calculation;
-                        localStorage.setItem('calculation',calculation);
-                    }
-                }
             }
         </script>
     </body>
