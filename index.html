@@ -130,9 +130,18 @@
                 console.log(calculation);
             }
             function equalCalculation() {
-                calculation=eval(calculation);
-                console.log(calculation);
-                localStorage.setItem('calculation',eval(calculation));
+                if (!calculation) {
+                    calculation = '0'
+                    calculation=eval(calculation);
+                    console.log(calculation);
+                    localStorage.setItem('calculation',eval(calculation));
+                }
+                else {
+                    calculation=eval(calculation);
+                    console.log(calculation);
+                    localStorage.setItem('calculation',eval(calculation));
+                }
+                
             }
 
             function clearCalculation() {
