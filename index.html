@@ -8,40 +8,56 @@
                 display: flex;
                 align-items: center;
                 flex-direction: column;
-            }
-            .div-buttons {
-                display: grid;
-                width: 300px;
-                height: 420px;
-                grid-template-columns: 1fr 1fr 1fr;
-                column-gap: 5px;
-                row-gap: 5px;
-            }
-            
+            }            
             button {
-                background-color: rgb(53, 53, 53);
-                color: rgb(255, 255, 255);
+                background-color: rgb(41, 41, 41);
+                color: rgb(214, 214, 214);
                 border: none;
                 border-radius: 10px;
-                font-size: 25px;
+                font-size: 28px;
                 transition: opacity 0.2s;
             }
             button:hover {opacity: 0.6}
-            .clear {
-                margin-top: 5px;
-                height: 75px;
-                width: 300px;
+            .result-input {
+                background-color: rgb(65, 65, 65);
+                height: 90px;
+                width: 380px;
+                border: none;
+                border-radius: 10px;
+                font-size: 35px;
+                color: rgb(214, 214, 214);
+                margin: 5px 0;
+                padding: 0 10px;
+                text-align: end;
+            }
+            .result-input:focus {outline-width: 0px;}
+            .div-buttons {
+                display: grid;
+                width: 400px;
+                height: 420px;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+                column-gap: 5px;
+                row-gap: 5px;
             }
             .number-button {
-                background-color: rgb(65, 65, 65);
+                background-color: rgb(61, 61, 61);
             }
             .equal-button {
-                background-color: rgb(113, 174, 243);
+                background-color: rgb(58, 83, 194);
+            }
+            .clear {
+                margin-top: 5px;
+                height: 90px;
+                width: 400px;
             }
         </style>
     </head>
     <body>
         <div class="flexbox1">
+            <div>
+                <input class="result-input" placeholder="0" onkeydown="getKeyInput(event.key)">
+            </div>
+
             <div class="div-buttons">
                 <button class="number-button" onclick="calculate('1');">
                     1
@@ -53,6 +69,10 @@
                 
                 <button class="number-button" onclick="calculate('3');">
                     3
+                </button>
+
+                <button onclick="calculate(' + ');">
+                    +
                 </button>
     
                 <button class="number-button" onclick="calculate('4');">
@@ -67,6 +87,10 @@
                     6
                 </button>
 
+                <button onclick="calculate(' - ');">
+                    -
+                </button>
+
                 <button class="number-button" onclick="calculate('7');">
                     7
                 </button>
@@ -79,75 +103,82 @@
                     9
                 </button>
 
-                <button onclick="calculate(' + ');">
-                    +
-                </button>
-    
-                <button class="number-button" onclick="calculate('0');">
-                    0
-                </button>
-
-                <button onclick="calculate(' - ');">
-                    -
-                </button>
-    
                 <button onclick="calculate(' * ');">
                     *
+                </button>
+
+                <button onclick="calculate('.');">
+                    .
+                </button>
+
+                <button class="number-button" onclick="calculate('0');">
+                    0
                 </button>
 
                 <button class="equal-button" onclick="equalCalculation();">
                     =
                 </button>
-    
+
                 <button onclick="calculate(' / ');">
                     /
                 </button>
-
-                <button onclick="calculate(' ** ');">
-                    **
-                </button>
-
-                <button onclick="calculate('\(');">
-                    (
-                </button>
-
-                <button onclick="calculate('\)');">
-                    )
-                </button>
-    
             </div>
             <button class="clear" onclick="clearCalculation();">
-                C
+                Clear
             </button>
         </div>
 
         <script>
             let calculation = localStorage.getItem('calculation') || '';
-            console.log(calculation);
+            document.querySelector('.result-input').value = calculation;
             function calculate(char) {
                 calculation += char;
                 localStorage.setItem('calculation',calculation);
-                console.log(calculation);
+                document.querySelector('.result-input').value = calculation;
             }
             function equalCalculation() {
                 if (!calculation) {
                     calculation = '0'
                     calculation=eval(calculation);
-                    console.log(calculation);
                     localStorage.setItem('calculation',eval(calculation));
+                    document.querySelector('.result-input').value = calculation;
                 }
                 else {
                     calculation=eval(calculation);
-                    console.log(calculation);
-                    localStorage.setItem('calculation',eval(calculation));
+                    localStorage.setItem('calculation',calculation);
+                    document.querySelector('.result-input').value = calculation;
                 }
                 
             }
 
             function clearCalculation() {
                 calculation = '';
-                console.log(calculation);
                 localStorage.setItem('calculation',calculation);
+                document.querySelector('.result-input').value = calculation;
+            }
+            function getKeyInput(keyPressed) {
+                if(keyPressed &&
+                keyPressed !== 'Enter' &&
+                keyPressed !== 'Shift' &&
+                keyPressed !== 'Control' &&
+                keyPressed !== 'Backspace') {
+                    calculation += keyPressed;
+                    localStorage.setItem('calculation',calculation);
+                }
+                else {
+                    if (!calculation) {
+                        calculation = '0'
+                        calculation=eval(calculation);
+                        localStorage.setItem('calculation',eval(calculation));
+
+                    }
+                    else {
+                        calculation=eval(calculation);
+                        document.querySelector('.result-input').value = calculation;
+                        localStorage.setItem('calculation',calculation);
+
+                    }
+                }
             }
         </script>
     </body>
